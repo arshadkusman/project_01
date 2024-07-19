@@ -29,19 +29,14 @@ class ProductProvider with ChangeNotifier {
   }
 
   Product? findById(int id) {
-    if (_products.isEmpty) {
-      print('Product list is empty, cannot find product with ID: $id');
-      return null;
+    for (var product in _products) {
+      print('Checking product with ID: ${product.id}');
+      if (product.id == id) {
+        print('Product found: $product');
+        return product;
+      }
     }
-
-    print(
-        'Searching for product with ID: $id in products: ${_products.map((p) => p.id).toList()}');
-
-    try {
-      return _products.firstWhere((product) => product.id == id);
-    } catch (e) {
-      print('Product not found for ID: $id');
-      return null;
-    }
+    print('Product not found for Id: $id');
+    return null;
   }
 }
