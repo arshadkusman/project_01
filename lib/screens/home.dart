@@ -8,7 +8,7 @@ class HomeScreen extends StatelessWidget {
 
   Future<void> _fetchData(BuildContext context) async =>
       await Provider.of<ProductProvider>(context, listen: false)
-          .fetchProducts(context);
+          .fetchProducts();
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +17,65 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('E-commerce App'),
+      ),
+      drawer: Drawer(
+        backgroundColor: Colors.white,
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Center(
+                child: Text(
+                  'Menu',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                  ),
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text('Home'),
+              onTap: () {
+                Navigator.pop(context);
+                Beamer.of(context).beamToReplacementNamed('/home');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.shopping_cart),
+              title: Text('Cart'),
+              onTap: () {
+                Beamer.of(context).beamToNamed('/cart');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.account_circle),
+              title: Text('Profile'),
+              onTap: () {
+                Navigator.pushNamed(context, '/profile');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Settings'),
+              onTap: () {
+                Navigator.pushNamed(context, '/settings');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.exit_to_app),
+              title: Text('Logout'),
+              iconColor: Colors.red,
+              onTap: () {
+                Beamer.of(context).beamToReplacementNamed('/login');
+              },
+            ),
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         child: FutureBuilder(
@@ -52,6 +111,7 @@ class HomeScreen extends StatelessWidget {
                           context.beamToNamed('/productDetail/${product.id}');
                         },
                         child: Card(
+                          color: Colors.white,
                           elevation: 3,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),

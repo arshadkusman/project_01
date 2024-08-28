@@ -16,6 +16,9 @@ dependencies:
   provider: ^6.1.2
   beamer: ^1.6.1
   shared_preferences: ^2.2.3
+  dio: ^5.5.0+1
+  intl:
+  email_validator:
 
 dev_dependencies:
   flutter_test:
